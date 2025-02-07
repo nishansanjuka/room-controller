@@ -137,7 +137,7 @@ export default function RoomController(): React.JSX.Element {
       />
       <div className="relative z-10 min-h-screen pt-20 bg-background/70 backdrop-blur-sm lg:flex lg:items-center">
         <div className="container mx-auto p-4 lg:p-8 lg:grid lg:grid-cols-2 lg:gap-8 space-y-8 lg:space-y-0">
-          <Image src={'/bg.png'} alt="bg" width={1280} height={768} className=" rounded-xl h-full object-contain scale-125 lg:scale-[170%]" />
+          <Image src={'/bg.png'} alt="bg" width={1280} height={768} className=" rounded-xl h-full object-contain sm:scale-125 lg:scale-[170%]" />
           <Card>
             <CardContent>
               <CardHeader>
