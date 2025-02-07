@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Switch } from "@/components/ui/switch"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { DoorOpenIcon as Door, Lightbulb, AppWindowIcon as Window } from "lucide-react"
+import { DoorOpenIcon as Door, Fan, Lightbulb, Plug2, AppWindowIcon as Window } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { ControlCardProps, RoomState, SwitchCardProps } from "@/types"
@@ -47,8 +47,10 @@ const SwitchCard: React.FC<SwitchCardProps> = React.memo(({ number, isOn, onTogg
     <CardContent className="p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Lightbulb className={`h-5 w-5 ${isOn ? "text-green-500" : "text-muted-foreground"}`} />
-          <span className="text-sm font-medium">Switch {number}</span>
+          {number <= 2 ? <Lightbulb className={`h-5 w-5 ${isOn ? "text-green-500" : "text-muted-foreground"}`} /> : number <= 4 && number > 2 ? <Plug2 className={`h-5 w-5 ${isOn ? "text-green-500" : "text-muted-foreground"}`} /> : <Fan className={`h-5 w-5 ${isOn ? "text-green-500" : "text-muted-foreground"}`} />}
+          <span className="text-base font-medium">{`${number <= 2 ?
+            `Light ${number}` : number <= 4 && number > 2 ? `Plug ${number - 2}` : "Fan"
+            }`}</span>
         </div>
         <Switch checked={isOn} onCheckedChange={onToggle} />
       </div>
@@ -125,7 +127,7 @@ export default function RoomController(): React.JSX.Element {
       setIsLoading(false);
     });
     return () => unsubscribe();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -135,14 +137,14 @@ export default function RoomController(): React.JSX.Element {
       />
       <div className="relative z-10 min-h-screen pt-20 bg-background/70 backdrop-blur-sm lg:flex lg:items-center">
         <div className="container mx-auto p-4 lg:p-8 lg:grid lg:grid-cols-2 lg:gap-8 space-y-8 lg:space-y-0">
-          <Image src={'/bg.png'} alt="bg" width={1280} height={768} className="bg-muted rounded-xl h-full object-contain" />
+          <Image src={'/bg.png'} alt="bg" width={1280} height={768} className=" rounded-xl h-full object-contain scale-125 lg:scale-[170%]" />
           <Card>
             <CardContent>
               <CardHeader>
-                <CardTitle>
+                <CardTitle className="text-3xl text-center sm:text-left">
                   Controls
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-center sm:text-left">
                   Control various aspects of the room including lights, door, and window status. Toggle switches to manage different devices.
                 </CardDescription>
               </CardHeader>
